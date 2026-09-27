@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "contradictor.action-record.v1",
+  "title": "ActionRecord",
+  "description": "Records a discrete action taken during an evaluation session. Binds the action to an immutable plan + attempt context. Actions alone do not constitute readiness.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "action_id",
+    "plan_id",
+    "plan_hash",
+    "attempt_id",
+    "action_type",
+    "actor",
+    "performed_at"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "contradictor.action-record.v1"
+    },
+    "action_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+    },
+    "plan_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+    },
+    "plan_hash": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "attempt_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+    },
+    "action_type": {
+      "type": "string",
+      "enum": ["probe_execution", "review_requested", "review_submitted", "scope_exclusion", "escalation"],
+      "description": "Scope exclusions do not count as passing executions."
+    },
+    "actor": {
+      "type": "string",
+      "minLength": 1
+    },
+    "performed_at": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}"
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "contradictor.build-return.v1",
+  "title": "BUILDReturn",
+  "description": "The independent BUILD acceptance determination for a completed evidence package. Only the assigned BUILD authority produces this. Bob/implementation actors must not fabricate or self-issue a BUILDReturn. determination must be explicit — no implicit default may produce 'accepted'.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "return_id",
+    "plan_id",
+    "plan_hash",
+    "target_tool_id",
+    "target_build_id",
+    "build_authority_id",
+    "determination",
+    "determined_at",
+    "evidence_package_ref"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "contradictor.build-return.v1"
+    },
+    "return_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+    },
+    "plan_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+    },
+    "plan_hash": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "description": "Immutable plan identity this return is bound to."
+    },
+    "target_tool_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+    },
+    "target_build_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$",
+      "description": "Exact build identity this return is bound to. Cannot be substituted."
+    },
+    "build_authority_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Identity of the independent BUILD authority. Must not be fabricated or defaulted."
+    },
+    "determination": {
+      "type": "string",
+      "enum": ["accepted", "rejected", "blocked", "inconclusive"],
+      "description": "Explicit determination. No implicit default may produce 'accepted'. Implementation actors must not self-issue."
+    },
+    "determined_at": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}"
+    },
+    "evidence_package_ref": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "description": "Hash reference to the evidence package this determination is based on."
+    },
+    "limitations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

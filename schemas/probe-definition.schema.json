@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "contradictor.probe-definition.v1",
+  "title": "ProbeDefinition",
+  "description": "Immutable identity record for a single probe. The probe_definition_hash is the authoritative identity anchor — label and description are informational only.",
+  "type": "object",
+  "required": ["schema_version", "probe_id", "probe_version", "probe_definition_hash", "invariant_class", "kind"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "contradictor.probe-definition.v1"
+    },
+    "probe_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$",
+      "description": "Stable probe identifier (e.g. 'U1', 'U2')."
+    },
+    "probe_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "probe_definition_hash": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "description": "Canonical hash of the probe definition body. This is the authoritative immutable identity — not the probe label or presentation text."
+    },
+    "invariant_class": {
+      "type": "string",
+      "minLength": 1
+    },
+    "kind": {
+      "type": "string",
+      "enum": ["input-relation", "categorical", "action-sequence", "cross-surface"]
+    },
+    "label": {
+      "type": "string",
+      "description": "Human-readable label. Informational only — must not be used as identity."
+    },
+    "description": {
+      "type": "string"
+    }
+  }
+}

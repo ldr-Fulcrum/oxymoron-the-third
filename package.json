@@ -1,0 +1,19 @@
+{
+  "name": "oxymoron-the-third",
+  "version": "0.2.0",
+  "description": "Contradictor — adversarial validation prototype (public IBM Bob 2.0 hackathon competition release).",
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --strict --noEmit --allowImportingTsExtensions --target es2020 --module esnext --moduleResolution bundler --types node --lib es2020,es2024,dom src/contradictor.ts src/provenance.ts src/hc-schemas.ts src/hc-validate.ts",
+    "test": "node --test tests/kernel.test.mjs",
+    "test:hc-b01": "node --test tests/hc-b01/hc-b01.test.mjs",
+    "test:schema-agreement": "node --test tests/hc-b01/schema-agreement.test.mjs",
+    "test:integration": "node --test tests/integration/execution-bridge.test.mjs tests/integration/compare-evidence.test.mjs",
+    "test:all": "node --test --test-concurrency=1 tests/kernel.test.mjs tests/adversarial/abhitek-01.test.mjs tests/hc-b01/hc-b01.test.mjs tests/hc-b01/schema-agreement.test.mjs tests/integration/execution-bridge.test.mjs tests/integration/compare-evidence.test.mjs"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.0",
+    "@types/node": "^22.0.0"
+  },
+  "license": "MIT"
+}

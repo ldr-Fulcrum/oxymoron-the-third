@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "contradictor.gate-decision.v1",
+  "title": "GateDecision",
+  "description": "A gate decision records whether a build cleared a specific evaluation plan gate. A GateDecision is bound to an exact plan_hash and target_build_id — neither can be substituted. A missing approved plan means status must be 'blocked' or 'inconclusive', never 'clear'. Exporters/reports cannot confer gate clearance.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "decision_id",
+    "plan_id",
+    "plan_hash",
+    "target_tool_id",
+    "target_build_id",
+    "gate_status",
+    "decided_by",
+    "decided_at",
+    "coverage_summary"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "contradictor.gate-decision.v1"
+    },
+    "decision_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+    },
+    "plan_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+    },
+    "plan_hash": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "description": "Immutable plan identity this decision is bound to."
+    },
+    "target_tool_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+    },
+    "target_build_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$",
+      "description": "Exact build identity. A gate decision for build A cannot be presented as clearance for build B."
+    },
+    "gate_status": {
+      "type": "string",
+      "enum": ["clear", "blocked", "inconclusive", "not_run"],
+      "description": "No implicit default may produce 'clear'. Missing plan or build mismatch must produce 'blocked' or 'inconclusive'."
+    },
+    "decided_by": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Identity of the authority issuing this decision. Must not be empty or fabricated."
+    },
+    "decided_at": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}"
+    },
+    "coverage_summary": {
+      "$ref": "#/definitions/CoverageSummary"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "definitions": {
+    "CoverageSummary": {
+      "type": "object",
+      "required": ["required_count", "satisfied_count", "unsatisfied_items"],
+      "additionalProperties": false,
+      "properties": {
+        "required_count": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Total required probes per the approved plan. Must be at least 1."
+        },
+        "satisfied_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unsatisfied_items": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+          },
+          "description": "plan_item_ids that have not been satisfied."
+        }
+      }
+    }
+  }
+}

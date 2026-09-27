@@ -1,0 +1,17 @@
+{
+  "schema_version": "contradictor.comparison.v1",
+  "comparison": "failure_to_pass_evidence",
+  "reasons": [],
+  "before": {
+    "run_id": "Run-F9-Before-001",
+    "build": "eb1d6a5b850076f6a2b9d14992c12694e55b8689",
+    "record_hash": "sha256:01225f6675bd6f0c9286df900a438a661a037c7dc7e0296621a26a3add3dce47"
+  },
+  "after": {
+    "run_id": "Run-F9-After-001",
+    "build": "df31ea621e9b2de4444ed5fc0806190494b4897e",
+    "record_hash": "sha256:1f4b9a52086228d2304912279ff1845674e4b84c9ac09d365bcaf80ccbeb1616"
+  },
+  "challenge_hash": "sha256:299a2a3d291b9550768ab2f08edda5c6f6b9d9531f2a304348a5b8ceb3a2bd7d",
+  "limitation": "Evidence comparison only. Independent challenge ownership, authorized Bob repair, complete input coverage and BUILD acceptance require separate review."
+}

@@ -1,0 +1,19 @@
+{
+  "operator": "Codex",
+  "purpose": "independent-challenge execution by Codex; before repair",
+  "candidate": "eb1d6a5b850076f6a2b9d14992c12694e55b8689",
+  "checks": 7,
+  "tests": {
+    "cancelled": 0,
+    "failed": 1,
+    "passed": 29,
+    "skipped": 0,
+    "tests": 30,
+    "todo": 0
+  },
+  "record_hash": "sha256:01225f6675bd6f0c9286df900a438a661a037c7dc7e0296621a26a3add3dce47",
+  "exported_files_verified": 3,
+  "independent_reproduction": "NOT_PERFORMED",
+  "bob_repair_story": "NOT_DEMONSTRATED",
+  "final_acceptance": "NOT_ISSUED"
+}

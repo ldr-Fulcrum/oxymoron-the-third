@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "contradictor.domain-probe-profile.v1",
+  "title": "DomainProbeProfile",
+  "description": "Identity and metadata for a domain-specific probe profile. Not a gate authority — profile name alone does not establish scope approval.",
+  "type": "object",
+  "required": ["schema_version", "profile_id", "profile_version", "profile_hash", "tool_id", "probe_library_version"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "contradictor.domain-probe-profile.v1"
+    },
+    "profile_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$",
+      "description": "Stable machine identifier for this profile."
+    },
+    "profile_version": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Monotonically increasing version string."
+    },
+    "profile_hash": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "description": "Content hash of the canonical form of this profile (excluding this field). Establishes immutable identity."
+    },
+    "tool_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$",
+      "description": "The tool this profile applies to."
+    },
+    "probe_library_version": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Version of the Contradictor probe library this profile was authored against."
+    },
+    "description": {
+      "type": "string"
+    }
+  }
+}

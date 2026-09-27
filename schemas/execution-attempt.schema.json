@@ -1,0 +1,78 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "contradictor.execution-attempt.v1",
+  "title": "ExecutionAttempt",
+  "description": "Records an attempted execution of a plan item against a specific build. Binds the attempt to an immutable plan_item_id + probe_definition_hash. Presentation row text does not establish probe identity here — only plan_item_id and probe_definition_hash do.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "attempt_id",
+    "plan_id",
+    "plan_hash",
+    "plan_item_id",
+    "probe_id",
+    "probe_definition_hash",
+    "target_tool_id",
+    "target_build_id",
+    "execution_record_ref",
+    "execution_state",
+    "attempted_at"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "contradictor.execution-attempt.v1"
+    },
+    "attempt_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+    },
+    "plan_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+    },
+    "plan_hash": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "description": "Hash of the EvaluationPlan this attempt is bound to."
+    },
+    "plan_item_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$",
+      "description": "Identifies the specific plan item this attempt satisfies."
+    },
+    "probe_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+    },
+    "probe_definition_hash": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "description": "The immutable probe identity. Must match the plan_item's probe_definition_hash — a mismatch blocks satisfaction."
+    },
+    "target_tool_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+    },
+    "target_build_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$",
+      "description": "Must match the plan's target_build_id exactly. A mismatch means this attempt cannot satisfy the plan."
+    },
+    "execution_record_ref": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "description": "record_hash of the ProbeExecutionRecord this attempt is grounded in."
+    },
+    "execution_state": {
+      "type": "string",
+      "enum": ["passed", "failed", "inconclusive", "unsupported", "error"],
+      "description": "Execution state drawn from the linked execution record. Not_run is not valid — an attempt record implies execution was performed."
+    },
+    "attempted_at": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+# Preserve exact bytes of the frozen adversarial challenge and fixtures (hash-bound).
+tests/adversarial/abhitek-02.test.mjs -text
+tests/adversarial/fixtures/abhitek-02/* -text
+docs/public/DEMO-CONTRACT-01.md -text
+docs/public/DEMO-CONTRACT-01-v2.md -text
+docs/public/evidence/** -text
+*.png binary

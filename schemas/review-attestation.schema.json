@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "contradictor.review-attestation.v1",
+  "title": "ReviewAttestation",
+  "description": "A human reviewer's attestation for a specific plan item execution. attestation_type must be an explicit determination — missing or defaulted approval is not valid. Fabricated reviewer identity is prohibited.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "attestation_id",
+    "plan_id",
+    "plan_hash",
+    "plan_item_id",
+    "probe_definition_hash",
+    "target_build_id",
+    "reviewer_id",
+    "attestation_type",
+    "attested_at"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "contradictor.review-attestation.v1"
+    },
+    "attestation_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+    },
+    "plan_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+    },
+    "plan_hash": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "plan_item_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$"
+    },
+    "probe_definition_hash": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "description": "Must match the plan item's probe_definition_hash."
+    },
+    "target_build_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$",
+      "description": "Must match the plan's target_build_id."
+    },
+    "reviewer_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Must not be empty. Fabricated or defaulted reviewer identity is not valid."
+    },
+    "attestation_type": {
+      "type": "string",
+      "enum": ["confirmed", "rejected", "inconclusive", "deferred"],
+      "description": "Explicit determination. No implicit default may add approval or success."
+    },
+    "attested_at": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}"
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

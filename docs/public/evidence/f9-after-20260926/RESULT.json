@@ -1,0 +1,19 @@
+{
+  "operator": "Codex",
+  "purpose": "Codex execution of Bob F9 repair; independent acceptance not issued",
+  "candidate": "df31ea621e9b2de4444ed5fc0806190494b4897e",
+  "checks": 7,
+  "tests": {
+    "cancelled": 0,
+    "failed": 0,
+    "passed": 30,
+    "skipped": 0,
+    "tests": 30,
+    "todo": 0
+  },
+  "record_hash": "sha256:1f4b9a52086228d2304912279ff1845674e4b84c9ac09d365bcaf80ccbeb1616",
+  "exported_files_verified": 3,
+  "independent_reproduction": "NOT_PERFORMED",
+  "bob_repair_story": "NOT_DEMONSTRATED",
+  "final_acceptance": "NOT_ISSUED"
+}

@@ -1,0 +1,12 @@
+.env
+.env.*
+__pycache__/
+.venv/
+node_modules/
+*.log
+.DS_Store
+secrets/
+private/
+
+# Synthetic bridge tests and local runtime evidence (not submission evidence)
+.bridge-test-*/
